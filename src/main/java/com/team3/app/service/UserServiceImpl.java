@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService{
 					roles.add(a.get());
 				}
 			}
-			user.setRoles(roles);
+			//user.setRoles(roles);
 		}
 		try {
 			repository.save(user);
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
 						roles.add(a.get());
 					}
 				}
-				user.setRoles(roles);
+			//	user.setRoles(roles);
 			}
 			try {
 				repository.save(user);
