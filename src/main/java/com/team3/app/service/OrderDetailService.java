@@ -6,10 +6,12 @@ import com.team3.app.entities.OrderDetail;
 public interface OrderDetailService {
 	
 	Object getAll();
+	
+	Object getOrderDetailById(int id);
 
-	Object insertOne(OrderDetail orderDetail);
+	Object addOrderDetail(OrderDetail orderDetail);
 
-	Object deleteOne(int id);
+	Object deleteOrderDetail(int id);
 
-	Object editOne(OrderDetail orderDetail);
+	Object UpdateOrderDetail(OrderDetail orderDetail);
 }

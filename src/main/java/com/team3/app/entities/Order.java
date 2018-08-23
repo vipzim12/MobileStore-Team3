@@ -14,7 +14,6 @@ import javax.persistence.Table;
 public class Order {
 	@Id
 	@Column(name = "id_order")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name = "id_order_detail")
 	private int idOrderDetail;

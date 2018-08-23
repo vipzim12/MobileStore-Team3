@@ -48,4 +48,10 @@ public class OrderServiceImpl implements OrderService {
 		}
 	}
 
+  @Override
+  public Object getOrderById(int id) {
+    
+    return new HttpObject(true, repository.findById(id));
+  }
+
 }

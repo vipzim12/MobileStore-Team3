@@ -21,20 +21,20 @@ public class Role implements Serializable {
   private int roleId;
   @Column(name = "name")
   private String roleName;
-  @ManyToMany(mappedBy = "roles")
-  private Set<User> users;
+//  @ManyToMany(mappedBy = "roles")
+//  private Set<User> users;
 
   public int getRoleId() {
     return roleId;
   }
 
-  public Set<User> getUsers() {
-    return users;
-  }
-
-  public void setUsers(Set<User> users) {
-    this.users = users;
-  }
+//  public Set<User> getUsers() {
+//    return users;
+//  }
+//
+//  public void setUsers(Set<User> users) {
+//    this.users = users;
+//  }
 
   public void setRoleId(int roleId) {
     this.roleId = roleId;

@@ -1,108 +1,125 @@
 package com.team3.app.entities;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Order_Detail")
-public class OrderDetail {
-	@Id
-	@Column(name = "id_order_detail")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(name = "id_product")
-	private int idProduct;
-	@Column(name = "quantity")
-	private int quantity;
-	@Column(name = "current_price")
-	private double currentPrice;
-	@Column(name = "fullname_customer")
-	private String customerFullName;
-	@Column(name = "email_customer")
-	private String customerEmail;
-	@Column(name = "phone_customer")
-	private String customerPhone;
-	@Column(name = "address_customer")
-	private String customerAddress;
-	@Column(name = "description")
-	private String description;
+public class OrderDetail implements Serializable {
+  @Id
+  @Column(name = "id_order_detail")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-	public int getId() {
-		return id;
-	}
+  @Column(name = "id_product")
+  private int idProduct;
+  @Column(name = "quantity")
+  private int quantity;
+  @Column(name = "current_price")
+  private double currentPrice;
+  @Column(name = "fullname_customer")
+  private String customerFullName;
+  @Column(name = "email_customer")
+  private String customerEmail;
+  @Column(name = "phone_customer")
+  private String customerPhone;
+  @Column(name = "address_customer")
+  private String customerAddress;
+  @Column(name = "description")
+  private String description;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  @OneToOne
+  @JoinColumn(name = "id_order_detail")
+  private Order order;
 
-	public int getIdProduct() {
-		return idProduct;
-	}
+  public Order getOrder() {
+    return order;
+  }
 
-	public void setIdProduct(int idProduct) {
-		this.idProduct = idProduct;
-	}
+  public void setOrder(Order order) {
+    this.order = order;
+  }
 
-	public int getQuantity() {
-		return quantity;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public double getCurrentPrice() {
-		return currentPrice;
-	}
+  public int getIdProduct() {
+    return idProduct;
+  }
 
-	public void setCurrentPrice(double currentPrice) {
-		this.currentPrice = currentPrice;
-	}
+  public void setIdProduct(int idProduct) {
+    this.idProduct = idProduct;
+  }
 
-	public String getCustomerFullName() {
-		return customerFullName;
-	}
+  public int getQuantity() {
+    return quantity;
+  }
 
-	public void setCustomerFullName(String customerFullName) {
-		this.customerFullName = customerFullName;
-	}
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 
-	public String getCustomerEmail() {
-		return customerEmail;
-	}
+  public double getCurrentPrice() {
+    return currentPrice;
+  }
 
-	public void setCustomerEmail(String customerEmail) {
-		this.customerEmail = customerEmail;
-	}
+  public void setCurrentPrice(double currentPrice) {
+    this.currentPrice = currentPrice;
+  }
 
-	public String getCustomerPhone() {
-		return customerPhone;
-	}
+  public String getCustomerFullName() {
+    return customerFullName;
+  }
 
-	public void setCustomerPhone(String customerPhone) {
-		this.customerPhone = customerPhone;
-	}
+  public void setCustomerFullName(String customerFullName) {
+    this.customerFullName = customerFullName;
+  }
 
-	public String getCustomerAddress() {
-		return customerAddress;
-	}
+  public String getCustomerEmail() {
+    return customerEmail;
+  }
 
-	public void setCustomerAddress(String customerAddress) {
-		this.customerAddress = customerAddress;
-	}
+  public void setCustomerEmail(String customerEmail) {
+    this.customerEmail = customerEmail;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public String getCustomerPhone() {
+    return customerPhone;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public void setCustomerPhone(String customerPhone) {
+    this.customerPhone = customerPhone;
+  }
+
+  public String getCustomerAddress() {
+    return customerAddress;
+  }
+
+  public void setCustomerAddress(String customerAddress) {
+    this.customerAddress = customerAddress;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
 }

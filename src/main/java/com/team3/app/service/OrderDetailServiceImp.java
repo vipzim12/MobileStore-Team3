@@ -10,30 +10,51 @@ import com.team3.app.utils.HttpObject;
 @Service
 public class OrderDetailServiceImp implements OrderDetailService {
 
-	@Autowired
-	OrderDetailRepository orderDetailRepository;
+  @Autowired
+  OrderDetailRepository orderDetailRepository;
+  @Autowired
+  OrderService orderService;
 
-	@Override
-	public Object getAll() {
-		return new HttpObject(true, orderDetailRepository.findAll());
-	}
+  @Override
+  public Object getAll() {
+    return new HttpObject(true, orderDetailRepository.findAll());
+  }
 
-	@Override
-	public Object insertOne(OrderDetail orderDetail) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  @Override
+  public Object getOrderDetailById(int id) {
 
-	@Override
-	public Object deleteOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    return new HttpObject(true, orderDetailRepository.findById(id));
+  }
 
-	@Override
-	public Object editOne(OrderDetail orderDetail) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+  @Override
+  public Object addOrderDetail(OrderDetail orderDetail) {
+    try {
+      orderDetailRepository.save(orderDetail);
+
+    } catch (Exception e) {
+      return new HttpObject(false, "add order detail fail!");
+    }
+    return new HttpObject(true, "add successfully");
+  }
+
+  @Override
+  public Object deleteOrderDetail(int id) {
+    if (orderDetailRepository.existsById(id)) {
+      orderDetailRepository.deleteById(id);
+      return new HttpObject(true, "Delete Successfully!");
+    }
+    return new HttpObject(false, "Delete Fail!");
+  }
+
+  @Override
+  public Object UpdateOrderDetail(OrderDetail orderDetail) {
+    if (orderDetailRepository.existsById(orderDetail.getId())) {
+      orderDetailRepository.save(orderDetail);
+      return new HttpObject(true, "Edit Order Detail successfully");
+    } else {
+      return new HttpObject(false,
+          "Order Detail with id=" + orderDetail.getId() + " do not exists");
+    }
+  }
 
 }

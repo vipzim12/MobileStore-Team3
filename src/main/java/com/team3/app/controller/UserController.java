@@ -19,7 +19,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	Object viewAll() {
-		System.out.println(service.getAll());
 		return service.getAll();
 	}
 
