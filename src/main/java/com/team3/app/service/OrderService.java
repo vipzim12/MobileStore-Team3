@@ -4,13 +4,16 @@ import com.team3.app.entities.Order;
 
 public interface OrderService {
 
-	Object getAll();
-	Object getOrderById(int id);
+  Object getAll();
 
-	Object insertOne(Order order);
+  Object getOrderById(int id);
 
-	Object deleteOne(int id);
+  Object insertOne(Order order);
 
-	Object editOne(Order order);
+  Object deleteOne(int id);
+
+  void deleteOrderByIdOrderDetail(int idOrderDeatail);
+
+  Object editOne(Order order);
 
 }

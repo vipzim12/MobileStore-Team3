@@ -40,6 +40,7 @@ public class OrderDetailServiceImp implements OrderDetailService {
   @Override
   public Object deleteOrderDetail(int id) {
     if (orderDetailRepository.existsById(id)) {
+      orderService.deleteOrderByIdOrderDetail(id);
       orderDetailRepository.deleteById(id);
       return new HttpObject(true, "Delete Successfully!");
     }
@@ -55,6 +56,14 @@ public class OrderDetailServiceImp implements OrderDetailService {
       return new HttpObject(false,
           "Order Detail with id=" + orderDetail.getId() + " do not exists");
     }
+  }
+
+  @Override
+  public Boolean isExistDetailOrder(int idOrderDetail) {
+    if (orderDetailRepository.existsById(idOrderDetail)) {
+      return true;
+    }
+    return false;
   }
 
 }

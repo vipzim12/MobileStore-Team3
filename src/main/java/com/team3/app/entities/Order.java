@@ -74,6 +74,12 @@ public class Order {
 		this.coupon = coupon;
 	}
 
+  @Override
+  public String toString() {
+    return "Order [id=" + id + ", idOrderDetail=" + idOrderDetail + ", idUser=" + idUser
+        + ", status=" + status + ", paymentMethod=" + paymentMethod + ", coupon=" + coupon + "]";
+  }
+
 	
 
 }
