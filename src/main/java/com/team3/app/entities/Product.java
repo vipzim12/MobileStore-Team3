@@ -1,14 +1,16 @@
 package com.team3.app.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "Products")
@@ -18,14 +20,13 @@ public class Product implements Serializable {
 	@Column(name = "id_product")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "id_category")
-	private int idCategory;
+	
 	@Column(name = "name")
 	private String name;
 	@Column(name = "price")
 	private double price;
 	@Column(name = "promotion")
-	private float promotion;
+	private String promotion;
 	@Column(name = "tag")
 	private String tag;
 	@Column(name = "details")
@@ -34,6 +35,21 @@ public class Product implements Serializable {
 	private String description;
 	@Column(name = "content")
 	private String content;
+	@Column(name = "link_image")
+	private String linkImage;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_category", referencedColumnName = "id_category")
+	private Category category;
+	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
 	public int getId() {
 		return id;
@@ -43,13 +59,6 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public int getIdCategory() {
-		return idCategory;
-	}
-
-	public void setIdCategory(int idCategory) {
-		this.idCategory = idCategory;
-	}
 
 	public String getName() {
 		return name;
@@ -67,11 +76,11 @@ public class Product implements Serializable {
 		this.price = price;
 	}
 
-	public float getPromotion() {
+	public String getPromotion() {
 		return promotion;
 	}
 
-	public void setPromotion(float promotion) {
+	public void setPromotion(String promotion) {
 		this.promotion = promotion;
 	}
 
@@ -111,5 +120,14 @@ public class Product implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	public String getLinkImage() {
+		return linkImage;
+	}
+
+	public void setLinkImage(String linkImage) {
+		this.linkImage = linkImage;
+	}
+		
 
 }

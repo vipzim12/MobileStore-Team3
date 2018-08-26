@@ -1,54 +1,75 @@
 package com.team3.app.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "Category")
 public class Category implements Serializable {
-  private static final long serialVersionUID = 1L;
-  @Id
-  @Column(name = "id_category")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
-  @Column(name = "id_group_categoty")
-  private int idGroup;
-  @Column(name = "name")
-  private String name;
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "id_category")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column(name = "name")
+	private String name;
 
-  public int getId() {
-    return id;
-  }
+	@ManyToOne
+	@JoinColumn(name = "id_group_category", referencedColumnName = "id_group_category")
+	private GroupCategory gCategory;
 
-  public void setId(int id) {
-    this.id = id;
-  }
+	public GroupCategory getgCategory() {
+		return gCategory;
+	}
 
-  public int getIdGroup() {
-    return idGroup;
-  }
+	public void setgCategory(GroupCategory gCategory) {
+		this.gCategory = gCategory;
+	}
 
-  public void setIdGroup(int idGroup) {
-    this.idGroup = idGroup;
-  }
+	public int getId() {
+		return id;
+	}
 
-  public String getName() {
-    return name;
-  }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
 
-  public static long getSerialversionuid() {
-    return serialVersionUID;
-  }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	@OneToMany(mappedBy ="category")
+	@JsonBackReference
+	private Set<Product> product;
+
+	public Set<Product> getProduct() {
+		return product;
+	}
+
+	public void setProduct(Set<Product> product) {
+		this.product = product;
+	}
+
 
 }
