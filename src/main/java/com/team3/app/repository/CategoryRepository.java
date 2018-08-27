@@ -1,11 +1,15 @@
 package com.team3.app.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.team3.app.entities.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-
+	@Query(value ="select * from Category c where c.id_group_category = ?1", nativeQuery=true)
+	List<Category> getAllByGCategoryID(Integer gCategoryId);
 }

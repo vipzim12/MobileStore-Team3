@@ -16,7 +16,12 @@ public class ProductService implements ProductServiceIpm {
 	public HttpObject getAll() {
 		return new HttpObject(true, repository.findAll());
 	}
-
+	
+	@Override
+	public Object gellProByGCategoryId(int id) {
+		return new HttpObject(true, repository.gellProByGCategoryId(id));
+	}
+	
 	@Override
 	public HttpObject insertOne(Product product) {
 		try {
@@ -60,4 +65,12 @@ public class ProductService implements ProductServiceIpm {
 			return new HttpObject(false, "Product with id="+id + " do not exists");
 		}
 	}
+
+	@Override
+	public Object getAllProductSale() {
+		return new HttpObject(true, repository.getAllProductSale()); 
+	}
+
+
+	
 }

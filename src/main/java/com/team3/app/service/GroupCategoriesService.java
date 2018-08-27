@@ -60,4 +60,6 @@ public class GroupCategoriesService implements GroupCategoriesServiceIpm {
 			return new HttpObject(false, "Product with id="+id + " do not exists");
 		}
 	}
+	
+
 }

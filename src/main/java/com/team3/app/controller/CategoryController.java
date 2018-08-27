@@ -26,6 +26,13 @@ public class CategoryController {
 		return service.getAll();
 	}
 	
+	
+	
+	@RequestMapping(value = "/all/{id}", method = RequestMethod.GET)
+	Object viewAllBGCategoryId(@PathVariable int id) {
+		return service.getAllByGCategory(id);
+	}
+	
 	@RequestMapping(value = "/group-category", method = RequestMethod.GET)
 	Object getGroupCategory() {
 		return gCategoryService.getAll();

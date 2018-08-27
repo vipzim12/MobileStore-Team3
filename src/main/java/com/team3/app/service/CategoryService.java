@@ -59,4 +59,10 @@ public class CategoryService implements CategoryServiceIpm{
 			return new HttpObject(false, "Product with id="+id + " do not exists");
 		}
 	}
+
+	@Override
+	public Object getAllByGCategory(int id) {
+		return new HttpObject(true, repository.getAllByGCategoryID(id));
+	}
+	
 }

@@ -22,6 +22,7 @@ public class GroupCategoriesController {
 	Object viewAll() {
 		return service.getAll();
 	}
+
 	
 	@RequestMapping(value = "/add-new", method = RequestMethod.POST)
 	Object addOne(@RequestBody GroupCategory gCategory) {
