@@ -73,12 +73,16 @@ public class UserServiceImpl implements UserService{
 	public Object checkUser(String username, String password) {
 		User userDes = repository.findByUsername(username);
 		if(userDes!=null) {
-			if(encoder.matches(encoder.encode(password), userDes.getPassword())) {
-				Map<String, Object> a = new HashMap<String, Object>();
-				a.put("token", jwtService.generateTokenLogin(username));
-				userDes.setPassword(null);
-				a.put("user", userDes);
-				return new HttpObject(true, a);
+			if(encoder.encode(password).trim().equals(userDes.getPassword().trim())) {
+				if(userDes.getRole().getName().equals("ADMIN")) {
+					Map<String, Object> a = new HashMap<String, Object>();
+					a.put("token", jwtService.generateTokenLogin(username));
+					userDes.setPassword(null);
+					a.put("user", userDes);
+					return new HttpObject(true, a);
+				}else {
+					return new HttpObject(false, "Login by admin account only.");
+				}
 			}else {
 				return new HttpObject(false, "Wrong password");
 			}
