@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and().authorizeRequests()
 		.mvcMatchers("/auth/login").permitAll()
 		.mvcMatchers("/pages/user/select").hasAuthority("ADMIN")
-		.mvcMatchers("/pages/user/select/**").hasAnyAuthority("ADMIN","EMPLOYEE","USER")
+		.mvcMatchers("/pages/user/select/**").hasAnyAuthority("ADMIN")
 		.mvcMatchers("/pages/user/insert").hasAuthority("ADMIN")
 		.mvcMatchers("/pages/user/edit").hasAuthority("ADMIN")
 		.mvcMatchers("/pages/user/delete/{id}").hasAuthority("ADMIN")

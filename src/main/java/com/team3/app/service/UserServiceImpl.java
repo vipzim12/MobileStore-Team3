@@ -56,9 +56,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Object editOne(User user) {
+		Optional<User> opt = repository.findById(user.getId());
 		try {
-			if(repository.existsById(user.getId())) {
-				user.setPassword(encoder.encode(user.getPassword()));
+			if(opt.isPresent()) {
+				if(user.getPassword()==null||user.getPassword().equals("")) {
+					user.setPassword(opt.get().getPassword());
+				}else {
+					user.setPassword(encoder.encode(user.getPassword()));
+				}
 				repository.save(user);
 				return new HttpObject(true, "Edit User successfully");
 			}else {
