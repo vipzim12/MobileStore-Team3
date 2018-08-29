@@ -20,49 +20,59 @@ import com.team3.app.service.ProductServiceIpm;
 @RequestMapping("/api/product")
 @CrossOrigin("http://localhost:4200")
 public class ProductController {
-	@Autowired
-	private ProductServiceIpm productService;
-	
-	@Autowired
-	private CategoryServiceIpm categoryService;
-	
-	@GetMapping(value = {"/all"})
-	Object viewAll() {
-		return productService.getAll();
-	}
-	
-	@GetMapping(value = {"/sale"})
-	Object getAllProductSale() {
-		return productService.getAllProductSale();
-	}
-	
-	@GetMapping(value = {"/product_by_gcategory/{id}"})
-	Object getAllProByCateId(@PathVariable int id) {
-		return productService.gellProByGCategoryId(id);
-	}
-	
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
-	Object getCategory() {
-		return categoryService.getAll();
-	}
+  @Autowired
+  private ProductServiceIpm productService;
 
-	@PostMapping(value = "/add-new")
-	Object addOne(@RequestBody Product product) {
-		return productService.insertOne(product);
-	}
+  @Autowired
+  private CategoryServiceIpm categoryService;
 
-	@DeleteMapping(value = "/delete/{id}")
-	Object deleteOne(@PathVariable int id) {
-		return productService.deleteOne(id);
-	}
+  @GetMapping(value = { "/all" })
+  Object viewAll() {
+    return productService.getAll();
+  }
 
-	@PutMapping(value = "/edit")
-	Object editOne(@RequestBody Product product) {
-		return productService.editOne(product);
-	}
+  @GetMapping(value = { "/sale" })
+  Object getAllProductSale() {
+    return productService.getAllProductSale();
+  }
 
-	@GetMapping("/edit/{id}")
-	Object getOne(@PathVariable("id") int id){
-		return productService.getOne(id);
-	}
+  @GetMapping(value = { "/product_by_gcategory/{id}" })
+  Object getAllProByCateId(@PathVariable int id) {
+    return productService.gellProByGCategoryId(id);
+  }
+
+  @RequestMapping(value = "/category", method = RequestMethod.GET)
+  Object getCategory() {
+    return categoryService.getAll();
+  }
+
+  @PostMapping(value = "/add-new")
+  Object addOne(@RequestBody Product product) {
+    return productService.insertOne(product);
+  }
+
+  @DeleteMapping(value = "/delete/{id}")
+  Object deleteOne(@PathVariable int id) {
+    return productService.deleteOne(id);
+  }
+
+  @PutMapping(value = "/edit")
+  Object editOne(@RequestBody Product product) {
+    return productService.editOne(product);
+  }
+
+  @GetMapping("/edit/{id}")
+  Object getOne(@PathVariable("id") int id) {
+    return productService.getOne(id);
+  }
+
+  @GetMapping("/sortAsc")
+  Object getSortAsc() {
+    return productService.sortAsc();
+  }
+
+  @GetMapping("/sortDesc")
+  Object getSortDesc() {
+    return productService.sortDesc();
+  }
 }

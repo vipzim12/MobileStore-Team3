@@ -1,16 +1,17 @@
 package com.team3.app.service;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.team3.app.entities.Role;
 import com.team3.app.entities.User;
-import com.team3.app.repository.RoleRepository;
 import com.team3.app.repository.UserRepository;
+import com.team3.app.security.JwtService;
+import com.team3.app.security.MD5;
 import com.team3.app.utils.HttpObject;
 
 @Service
@@ -19,31 +20,28 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UserRepository repository;
 	@Autowired
-	RoleRepository roleRepository;
+	MD5 encoder;
+	@Autowired
+	JwtService jwtService;
 
 	@Override
 	public Object getAll() {
-		return new HttpObject(true, repository.findAll());
+		List<User> a = repository.findAll();
+		a.forEach(x->{
+			x.setPassword(null);
+		});
+		return new HttpObject(true, a);
 	}
 
 	@Override
-	public Object insertOne(User user,int[] rolesArr) {
-		if(rolesArr!=null) {
-			Set<Role> roles = new HashSet<Role>();
-			for (int i : rolesArr) {
-				Optional<Role> a = roleRepository.findById(i);
-				if(a.isPresent()) {
-					roles.add(a.get());
-				}
-			}
-			//user.setRoles(roles);
-		}
+	public Object insertOne(User user) {
 		try {
+			user.setPassword(encoder.encode(user.getPassword()));
 			repository.save(user);
+			return new HttpObject(true, "Add user successfully");
 		} catch (Exception e) {
-			return new HttpObject(false, "Add User Failed");
+			return new HttpObject(false, "Add user failed");
 		}
-		return new HttpObject(true, "Add User successfully");
 	}
 
 	@Override
@@ -57,28 +55,55 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Object editOne(User user,int[] rolesArr) {
-		if(repository.existsById(user.getId())) {
-			if(rolesArr!=null) {
-				Set<Role> roles = new HashSet<Role>();
-				for (int i : rolesArr) {
-					Optional<Role> a = roleRepository.findById(i);
-					if(a.isPresent()) {
-						roles.add(a.get());
-					}
+	public Object editOne(User user) {
+		Optional<User> opt = repository.findById(user.getId());
+		try {
+			if(opt.isPresent()) {
+				if(user.getPassword()==null||user.getPassword().equals("")) {
+					user.setPassword(opt.get().getPassword());
+				}else {
+					user.setPassword(encoder.encode(user.getPassword()));
 				}
-			//	user.setRoles(roles);
-			}
-			try {
 				repository.save(user);
-			} catch (Exception e) {
-				return new HttpObject(false, "Edit User Failed");
+				return new HttpObject(true, "Edit User successfully");
+			}else {
+				return new HttpObject(false, "User with id="+user.getId()+" do not exists");
 			}
-			return new HttpObject(true, "Edit User successfully");
-		}else {
-			return new HttpObject(false, "User with id="+user.getId()+" do not exists");
+		} catch (Exception e) {
+			return new HttpObject(false, "Edit user failed");
 		}
 	}
-	
+
+	@Override
+	public Object checkUser(String username, String password) {
+		User userDes = repository.findByUsername(username);
+		if(userDes!=null) {
+			if(encoder.encode(password).trim().equals(userDes.getPassword().trim())) {
+				if(userDes.getRole().getName().equals("ADMIN")) {
+					Map<String, Object> a = new HashMap<String, Object>();
+					a.put("token", jwtService.generateTokenLogin(username));
+					userDes.setPassword(null);
+					a.put("user", userDes);
+					return new HttpObject(true, a);
+				}else {
+					return new HttpObject(false, "Login by admin account only.");
+				}
+			}else {
+				return new HttpObject(false, "Wrong password");
+			}
+		}
+		return new HttpObject(false, "Username does not exists");
+	}
+
+	@Override
+	public Object getOne(int id) {
+		Optional<User> opt = repository.findById(id);
+		if (opt.isPresent()) {
+			opt.get().setPassword(null);
+			return new HttpObject(true, opt.get());
+		}
+		return new HttpObject(false, "Not found");
+	}
+
 	
 }

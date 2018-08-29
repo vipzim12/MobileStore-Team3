@@ -1,5 +1,8 @@
 package com.team3.app.entities;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @Entity
 @Table(name="Banners")
-public class Banner {
+
+public class Banner implements Serializable{
 	@Id
 	@Column(name="id_banner")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -45,5 +51,5 @@ public class Banner {
 	public void setUrlBanner(String urlBanner) {
 		this.urlBanner = urlBanner;
 	}
-	
+
 }
