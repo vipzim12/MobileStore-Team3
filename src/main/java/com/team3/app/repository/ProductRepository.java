@@ -10,7 +10,7 @@ import com.team3.app.entities.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-	@Query(value = "select * from Products p where p.promotion is not null", nativeQuery = true)
+	@Query(value = "select * from Products p where p.promotion > 0", nativeQuery = true)
 	List<Product> getAllProductSale();
 
 	@Query(value = "select Top(8) * from Products p, Category c, Group_Categories gc where p.id_category = c.id_category and c.id_group_category = gc.id_group_category and c.id_group_category = ?1", 
