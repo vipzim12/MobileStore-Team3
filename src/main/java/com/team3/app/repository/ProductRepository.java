@@ -22,7 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT P FROM Product P ORDER BY P.price DESC")
 	List<Product> getProductSortedDesc();
 
-	@Query(value = "select P.* " + "FROM Products P  JOIN Category  ON Category.id_category=P.id_category "
+	@Query(value = "select top(3) P.* " + "FROM Products P  JOIN Category  ON Category.id_category=P.id_category "
 			+ "INNER JOIN Group_Categories ON Category.id_group_category= Group_Categories.id_group_category "
 			+ "WHERE Group_Categories.id_group_category " + "in (SELECT Group_Categories.id_group_category "
 			+ "FROM Group_Categories JOIN Category ON Category.id_group_category= Group_Categories.id_group_category "
