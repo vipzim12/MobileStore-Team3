@@ -20,5 +20,7 @@ public interface ProductServiceIpm {
   Object sortAsc();
 
   Object sortDesc();
+  
+  Object gellProByGCategoryIdCategory(int id);
 
 }

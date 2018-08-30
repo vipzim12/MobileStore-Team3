@@ -40,7 +40,10 @@ public class ProductController {
   Object getAllProByCateId(@PathVariable int id) {
     return productService.gellProByGCategoryId(id);
   }
-
+  @GetMapping(value = { "/get_products_by_gcategory/{id}" })
+  Object getAllProByCateIdCategory(@PathVariable int id) {
+    return productService.gellProByGCategoryIdCategory(id);
+  }
   @RequestMapping(value = "/category", method = RequestMethod.GET)
   Object getCategory() {
     return categoryService.getAll();
