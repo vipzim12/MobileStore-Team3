@@ -33,10 +33,20 @@ public class User implements Serializable{
 	private String address;
 	@Column(name = "phone")
 	private String phone;
+	@Column(name = "status")
+	private int status;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "role_id")
 	private Role role;
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	public Role getRole() {
 		return role;
@@ -102,4 +112,12 @@ public class User implements Serializable{
 		this.phone = phone;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", fullName=" + fullName
+				+ ", email=" + email + ", address=" + address + ", phone=" + phone + ", status=" + status + ", role="
+				+ role + "]";
+	}
+
+	
 }

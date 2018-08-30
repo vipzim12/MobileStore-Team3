@@ -8,7 +8,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team3.app.entities.Role;
 import com.team3.app.entities.User;
+import com.team3.app.repository.RoleRepository;
 import com.team3.app.repository.UserRepository;
 import com.team3.app.security.JwtService;
 import com.team3.app.security.MD5;
@@ -19,6 +21,8 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	UserRepository repository;
+	@Autowired
+	RoleRepository roleRepository;
 	@Autowired
 	MD5 encoder;
 	@Autowired
@@ -37,6 +41,7 @@ public class UserServiceImpl implements UserService{
 	public Object insertOne(User user) {
 		try {
 			user.setPassword(encoder.encode(user.getPassword()));
+			user.setStatus(1);
 			repository.save(user);
 			return new HttpObject(true, "Add user successfully");
 		} catch (Exception e) {
@@ -47,7 +52,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Object deleteOne(int id) {
 		if(repository.existsById(id)) {
-			repository.deleteById(id);
+			repository.getOne(id).setStatus(0);
 			return new HttpObject(true, "Delete User successfully");
 		}else {
 			return new HttpObject(false, "User with id="+id+" do not exists");
@@ -75,9 +80,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Object checkUser(String username, String password) {
+	public Object checkAdmin(String username, String password) {
 		User userDes = repository.findByUsername(username);
-		if(userDes!=null) {
+		if(userDes!=null&&userDes.getStatus()==1) {
 			if(encoder.encode(password).trim().equals(userDes.getPassword().trim())) {
 				if(userDes.getRole().getName().equals("ADMIN")) {
 					Map<String, Object> a = new HashMap<String, Object>();
@@ -88,6 +93,24 @@ public class UserServiceImpl implements UserService{
 				}else {
 					return new HttpObject(false, "Login by admin account only.");
 				}
+			}else {
+				return new HttpObject(false, "Wrong password");
+			}
+		}
+		return new HttpObject(false, "Username does not exists");
+	}
+	
+	@Override
+	public Object checkClient(String username, String password) {
+		User userDes = repository.findByUsername(username);
+		System.out.println(userDes.toString());
+		if(userDes!=null&&userDes.getStatus()==1) {
+			if(encoder.encode(password).trim().equals(userDes.getPassword().trim())) {
+				Map<String, Object> a = new HashMap<String, Object>();
+				a.put("token", jwtService.generateTokenLogin(username));
+				userDes.setPassword(null);
+				a.put("user", userDes);
+				return new HttpObject(true, a);
 			}else {
 				return new HttpObject(false, "Wrong password");
 			}
@@ -105,5 +128,21 @@ public class UserServiceImpl implements UserService{
 		return new HttpObject(false, "Not found");
 	}
 
+	@Override
+	public Object registorClient(User user) {
+		try {
+			user.setId(0);
+			user.setPassword(encoder.encode(user.getPassword()));
+			user.setStatus(1);
+			Role role = roleRepository.getOne(2);
+			user.setRole(role);
+			repository.save(user);
+			return new HttpObject(true, "Registor user successfully");
+		} catch (Exception e) {
+			return new HttpObject(false, "Registor user failed");
+		}
+	}
+
+	
 	
 }
