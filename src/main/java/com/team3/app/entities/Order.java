@@ -3,79 +3,58 @@ package com.team3.app.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Orders")
 public class Order {
-	@Id
-	@Column(name = "id_order")
-	private int id;
-	@Column(name = "id_order_detail")
-	private int idOrderDetail;
-	@Column(name = "id_user")
-	private int idUser;
-	@Column(name = "status")
-	private int status;
-	@Column(name = "payment_method")
-	private int paymentMethod;
-	@Column(name = "coupon")
-	private String coupon;
+  @Id
+  @Column(name = "id_order")
+  private int id;
+  @Column(name = "id_order_detail")
+  private int idOrderDetail;
+  @Column(name = "status")
+  private String status;
 
-	public int getId() {
-		return id;
-	}
+  @OneToOne
+  @JoinColumn(name = "id_user")
+  private User user;
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getIdOrderDetail() {
-		return idOrderDetail;
-	}
-
-	public void setIdOrderDetail(int idOrderDetail) {
-		this.idOrderDetail = idOrderDetail;
-	}
-
-	public int getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(int paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
-	public String getCoupon() {
-		return coupon;
-	}
-
-	public void setCoupon(String coupon) {
-		this.coupon = coupon;
-	}
-
-  @Override
-  public String toString() {
-    return "Order [id=" + id + ", idOrderDetail=" + idOrderDetail + ", idUser=" + idUser
-        + ", status=" + status + ", paymentMethod=" + paymentMethod + ", coupon=" + coupon + "]";
+  public User getUser() {
+    return user;
   }
 
-	
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public int getIdOrderDetail() {
+    return idOrderDetail;
+  }
+
+  public void setIdOrderDetail(int idOrderDetail) {
+    this.idOrderDetail = idOrderDetail;
+  }
+
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
 
 }
