@@ -10,5 +10,7 @@ public interface UserService {
 	Object insertOne(User user);
 	Object deleteOne(int id);
 	Object editOne(User user);
-	Object checkUser(String username, String password);
+	Object checkAdmin(String username, String password);
+	Object checkClient(String username, String password);
+	Object registorClient(User user);
 }

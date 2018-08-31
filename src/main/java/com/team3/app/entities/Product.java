@@ -37,14 +37,6 @@ public class Product implements Serializable {
 	private String content;
 	@Column(name = "link_image")
 	private String linkImage;
-	private int quantity;
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 	
 	@ManyToOne
 	@JoinColumn(name = "id_category", referencedColumnName = "id_category")

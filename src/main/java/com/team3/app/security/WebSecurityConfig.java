@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
  
 		http.csrf().disable();
 		http.cors().and().authorizeRequests()
-		.mvcMatchers("/auth/login").permitAll()
+		.mvcMatchers("/auth/login","/api/**").permitAll()
 		.mvcMatchers("/pages/user/select").hasAuthority("ADMIN")
 		.mvcMatchers("/pages/user/select/**").hasAnyAuthority("ADMIN")
 		.mvcMatchers("/pages/user/insert").hasAuthority("ADMIN")

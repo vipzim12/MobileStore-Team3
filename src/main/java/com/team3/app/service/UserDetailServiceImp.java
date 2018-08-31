@@ -25,7 +25,7 @@ public class UserDetailServiceImp implements UserDetailsService{
 		User user = repository.findByUsername(username);
 		List<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 		auth.add(new SimpleGrantedAuthority(user.getRole().getName()));
-		if(user!=null) {
+		if(user!=null&&user.getStatus()==1) {
 			UserDetails userDetails = new org.springframework.security.core.userdetails.
 					User(user.getUsername(), user.getPassword(), auth);
 			return userDetails;

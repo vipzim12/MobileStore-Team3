@@ -20,6 +20,16 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	Object login(@RequestBody User user) {
-		return userService.checkUser(user.getUsername(),user.getPassword());
+		return userService.checkAdmin(user.getUsername(),user.getPassword());
+	}
+	
+	@PostMapping("/client/login")
+	Object loginClient(@RequestBody User user) {
+		return userService.checkClient(user.getUsername(),user.getPassword());
+	}
+	
+	@PostMapping(value = "/client/registor")
+	Object registor(@RequestBody User user) {
+		return userService.registorClient(user);
 	}
 }
