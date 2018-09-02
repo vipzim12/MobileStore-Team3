@@ -22,5 +22,10 @@ public interface ProductServiceIpm {
   Object sortDesc();
   
   Object gellProByGCategoryIdCategory(int id);
+<<<<<<< HEAD
+=======
+  
+  Object getAllProByName(String key);
+>>>>>>> Khoa
 
 }

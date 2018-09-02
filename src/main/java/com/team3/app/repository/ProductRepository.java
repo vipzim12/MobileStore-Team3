@@ -11,6 +11,9 @@ import com.team3.app.entities.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Khoa
 	@Query(value = "select * from Products p where p.promotion > 0", nativeQuery = true)
 	List<Product> getAllProductSale();
 =======
@@ -18,6 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
   List<Product> getAllProductSale();
 >>>>>>> Sau
 
+<<<<<<< HEAD
   @Query(value = "select Top(8) * from Products p, Category c, Group_Categories gc where p.id_category = c.id_category and c.id_group_category = gc.id_group_category and c.id_group_category = ?1", nativeQuery = true)
   List<Product> gellProByGCategoryId(Integer id);
 
@@ -34,4 +38,24 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
       + "FROM Group_Categories JOIN Category ON Category.id_group_category= Group_Categories.id_group_category "
       + "Where Category.id_category=?1 )", nativeQuery = true)
   List<Product> getProductsGCategoryByIdCategory(int id);
+=======
+	@Query(value = "select Top(8) * from Products p, Category c, Group_Categories gc where p.id_category = c.id_category and c.id_group_category = gc.id_group_category and c.id_group_category = ?1", nativeQuery = true)
+	List<Product> gellProByGCategoryId(Integer id);
+
+	@Query(value = "SELECT P FROM Product P ORDER BY P.price ")
+	List<Product> getProductSortedAsc();
+
+	@Query(value = "SELECT P FROM Product P ORDER BY P.price DESC")
+	List<Product> getProductSortedDesc();
+	
+	@Query(value = "SELECT * FROM Products P where p.name like  '%?1%'", nativeQuery = true)
+	List<Product> getProductByName(String key);
+
+	@Query(value = "select P.* " + "FROM Products P  JOIN Category  ON Category.id_category=P.id_category "
+			+ "INNER JOIN Group_Categories ON Category.id_group_category= Group_Categories.id_group_category "
+			+ "WHERE Group_Categories.id_group_category " + "in (SELECT Group_Categories.id_group_category "
+			+ "FROM Group_Categories JOIN Category ON Category.id_group_category= Group_Categories.id_group_category "
+			+ "Where Category.id_category=?1 )", nativeQuery = true)
+	List<Product> getProductsGCategoryByIdCategory(int id);
+>>>>>>> Khoa
 }

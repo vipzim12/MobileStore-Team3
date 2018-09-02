@@ -73,6 +73,7 @@ public class ProductService implements ProductServiceIpm {
 	@Override
 	public Object sortAsc() {
 		return new HttpObject(true, repository.getProductSortedAsc());
+<<<<<<< HEAD
 	}
 
 	@Override
@@ -85,6 +86,25 @@ public class ProductService implements ProductServiceIpm {
 	public Object gellProByGCategoryIdCategory(int id) {
 
 		return new HttpObject(true, repository.getProductsGCategoryByIdCategory(id));
+=======
+	}
+
+	@Override
+	public Object sortDesc() {
+
+		return new HttpObject(true, repository.getProductSortedDesc());
+	}
+
+	@Override
+	public Object gellProByGCategoryIdCategory(int id) {
+
+		return new HttpObject(true, repository.getProductsGCategoryByIdCategory(id));
+	}
+
+	@Override
+	public Object getAllProByName(String key) {
+		return new HttpObject(true, repository.getProductByName(key));
+>>>>>>> Khoa
 	}
 
 }
