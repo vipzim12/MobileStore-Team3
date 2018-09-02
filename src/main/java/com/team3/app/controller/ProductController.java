@@ -32,165 +32,123 @@ import com.team3.app.storage.StorageService;
 
 @RestController
 @RequestMapping("/api/product")
-@CrossOrigin(origins= {"http://localhost:4200","*"})
+@CrossOrigin(origins = { "http://localhost:4200", "*" })
 public class ProductController {
-<<<<<<< HEAD
-=======
+
 	private String linkImage = "";
 	private boolean isPost = false;
->>>>>>> Khoa
-  @Autowired
-  private ProductServiceIpm productService;
 
-  @Autowired
-  private CategoryServiceIpm categoryService;
+	@Autowired
+	private ProductServiceIpm productService;
 
-  @GetMapping(value = { "/all" })
-  Object viewAll() {
-    return productService.getAll();
-  }
+	@Autowired
+	private CategoryServiceIpm categoryService;
 
-  @GetMapping(value = { "/sale" })
-  Object getAllProductSale() {
-    return productService.getAllProductSale();
-  }
-<<<<<<< HEAD
+	@GetMapping(value = { "/all" })
+	Object viewAll() {
+		return productService.getAll();
+	}
 
-  @GetMapping(value = { "/product_by_gcategory/{id}" })
-  Object getAllProByCateId(@PathVariable int id) {
-    return productService.gellProByGCategoryId(id);
-  }
-  @GetMapping(value = { "/get_products_by_gcategory/{id}" })
-  Object getAllProByCateIdCategory(@PathVariable int id) {
-    return productService.gellProByGCategoryIdCategory(id);
-  }
-  @RequestMapping(value = "/category", method = RequestMethod.GET)
-  Object getCategory() {
-    return categoryService.getAll();
-  }
+	@GetMapping(value = { "/sale" })
+	Object getAllProductSale() {
+		return productService.getAllProductSale();
+	}
 
-  @PostMapping(value = "/add-new")
-  Object addOne(@RequestBody Product product) {
-    return productService.insertOne(product);
-  }
+	@GetMapping(value = { "/product_by_gcategory/{id}" })
+	Object getAllProByCateId(@PathVariable int id) {
+		return productService.gellProByGCategoryId(id);
+	}
 
-  @DeleteMapping(value = "/delete/{id}")
-  Object deleteOne(@PathVariable int id) {
-    return productService.deleteOne(id);
-  }
+	@GetMapping(value = { "/get_products_by_gcategory/{id}" })
+	Object getAllProByCateIdCategory(@PathVariable int id) {
+		return productService.gellProByGCategoryIdCategory(id);
+	}
 
-  @PutMapping(value = "/edit")
-  Object editOne(@RequestBody Product product) {
-    return productService.editOne(product);
-  }
+	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	Object getCategory() {
+		return categoryService.getAll();
+	}
 
-  @GetMapping("/edit/{id}")
-  Object getOne(@PathVariable("id") int id) {
-    return productService.getOne(id);
-  }
+	@DeleteMapping(value = "/delete/{id}")
+	Object deleteOne(@PathVariable int id) {
+		return productService.deleteOne(id);
+	}
 
-=======
+	@GetMapping(value = { "/search/{key}" })
+	Object getAllProByName(@PathVariable String key) {
+		return productService.getAllProByName(key);
+	}
 
-  @GetMapping(value = { "/product_by_gcategory/{id}" })
-  Object getAllProByCateId(@PathVariable int id) {
-    return productService.gellProByGCategoryId(id);
-  }
-  
-  @GetMapping(value = { "/search/{key}" })
-  Object getAllProByName(@PathVariable String key) {
-    return productService.getAllProByName(key);
-  }
-  
-  @GetMapping(value = { "/get_products_by_gcategory/{id}" })
-  Object getAllProByCateIdCategory(@PathVariable int id) {
-    return productService.gellProByGCategoryIdCategory(id);
-  }
-  @RequestMapping(value = "/category", method = RequestMethod.GET)
-  Object getCategory() {
-    return categoryService.getAll();
-  }
+	@PostMapping(value = "/add-new")
+	Object addOne(@RequestBody Product product) {
+		if (isPost) {
+			product.setLinkImage(linkImage);
+			System.out.println(linkImage);
+			isPost = false;
+		}
+		return productService.insertOne(product);
+	}
 
-  @PostMapping(value = "/add-new")
-  Object addOne(@RequestBody Product product) {
-	  if(isPost) {
-		  product.setLinkImage(linkImage);
-		  System.out.println(linkImage);
-		  isPost = false;
-	  }
-    return productService.insertOne(product);
-  }
+	@PutMapping(value = "/edit")
+	Object editOne(@RequestBody Product product) {
+		if (isPost) {
+			product.setLinkImage(linkImage);
+			isPost = false;
+		}
 
-  @DeleteMapping(value = "/delete/{id}")
-  Object deleteOne(@PathVariable int id) {
-    return productService.deleteOne(id);
-  }
+		return productService.editOne(product);
+	}
 
-  @PutMapping(value = "/edit")
-  Object editOne(@RequestBody Product product) {
-	  if(isPost) {
-		  product.setLinkImage(linkImage);
-		  isPost = false;
-	  }
-	  
-    return productService.editOne(product);
-  }
+	@GetMapping("/edit/{id}")
+	Object getOne(@PathVariable("id") int id) {
+		return productService.getOne(id);
+	}
 
-  @GetMapping("/edit/{id}")
-  Object getOne(@PathVariable("id") int id) {
-    return productService.getOne(id);
-  }
+	@GetMapping("/sortAsc")
+	Object getSortAsc() {
+		return productService.sortAsc();
+	}
 
->>>>>>> Khoa
-  @GetMapping("/sortAsc")
-  Object getSortAsc() {
-    return productService.sortAsc();
-  }
+	@GetMapping("/sortDesc")
+	Object getSortDesc() {
+		return productService.sortDesc();
+	}
 
-  @GetMapping("/sortDesc")
-  Object getSortDesc() {
-    return productService.sortDesc();
-  }
-<<<<<<< HEAD
-=======
-  
-  
-  
-  
-  @Autowired
+	@Autowired
 	StorageService storageService;
 
 	List<String> files = new ArrayList<String>();
 
 	@PostMapping("/post")
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-		
+
 		String message = "";
 		try {
 			String fileNameGet = storageService.store(file);
 			isPost = true;
-			System.out.println(fileNameGet+ "aaa");
+			System.out.println(fileNameGet + "aaa");
 			files.add(fileNameGet);
 			System.out.println("dadsasadasssss");
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
-			List<String> fileNames = files.stream().map(fileName -> MvcUriComponentsBuilder
+			List<String> fileNames = files.stream()
+					.map(fileName -> MvcUriComponentsBuilder
 							.fromMethodName(ProductController.class, "getFile", fileName).build().toString())
 					.collect(Collectors.toList());
 			files.clear();
 			linkImage = fileNames.get(0);
-			System.out.println(linkImage+"bbbb");
+			System.out.println(linkImage + "bbbb");
 			return ResponseEntity.ok().body(message);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			message = "http://localhost:8080/api/product/files/" + file.getOriginalFilename();
 			if (file.isEmpty()) {
 				linkImage = "";
-			}
-			else {
+			} else {
 				linkImage = message;
 			}
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 		}
 	}
-	
+
 	@GetMapping("/files/{filename:.+}")
 	@ResponseBody
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
@@ -199,5 +157,5 @@ public class ProductController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 				.body(file);
 	}
->>>>>>> Khoa
+
 }
