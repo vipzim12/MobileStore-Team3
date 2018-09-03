@@ -14,7 +14,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	// = true)
 	// List<Product> getAllProductSale();
 
+<<<<<<< HEAD
 	@Query(value = "select * from Products p where p.promotion is not null", nativeQuery = true)
+=======
+	@Query(value = "select * from Products p where p.promotion > 0", nativeQuery = true)
+>>>>>>> origin/Khoa
 	List<Product> getAllProductSale();
 
 	@Query(value = "select Top(8) * from Products p, Category c, Group_Categories gc where p.id_category = c.id_category and c.id_group_category = gc.id_group_category and c.id_group_category = ?1", nativeQuery = true)
@@ -36,7 +40,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	@Query(value = "SELECT * FROM Products P where p.name like  '%?1%'", nativeQuery = true)
 	List<Product> getProductByName(String key);
 	
+<<<<<<< HEAD
 	@Query(value="SELECT * FROM Products P WHERE P.id_category=?1", nativeQuery = true)
 	List<Product> getProductByCategoryId(int id);
+=======
+	@Query(value = "SELECT * FROM Products P where p.id_category = ?1", nativeQuery = true)
+	List<Product> getProductByCategoryId(Integer id);
+>>>>>>> origin/Khoa
 
 }

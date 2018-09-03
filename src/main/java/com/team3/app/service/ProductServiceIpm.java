@@ -15,7 +15,11 @@ public interface ProductServiceIpm {
 
 	Object getAllProductSale();
 
+<<<<<<< HEAD
 	Object gellProByGCategoryId(int id);
+=======
+	Object getAllProByGCategoryId(int id);
+>>>>>>> origin/Khoa
 
 	Object sortAsc();
 
