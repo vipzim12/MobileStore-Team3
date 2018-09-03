@@ -54,26 +54,21 @@ public class ProductController {
 	Object getAllProductSale() {
 		return productService.getAllProductSale();
 	}
-<<<<<<< HEAD
-	@GetMapping(value="/product_by_categoryId/{id}")
+
+	@GetMapping(value = "/product_by_categoryId/{id}")
 	Object getAllProductByCategoryID(@PathVariable int id) {
 		return productService.getProductByCategoryId(id);
 	}
-	@GetMapping(value = { "/product_by_gcategory/{id}" })
-	Object getAllProByCateId(@PathVariable int id) {
-		return productService.gellProByGCategoryId(id);
-=======
 
 	@GetMapping(value = { "/product_by_gcategory/{id}" })
 	Object getAllProByGCateId(@PathVariable int id) {
 		return productService.getAllProByGCategoryId(id);
 	}
-	
 
 	@GetMapping(value = { "/product_by_category/{id}" })
 	Object getAllProByCateId(@PathVariable int id) {
 		return productService.getProductByCategoryId(id);
->>>>>>> origin/Khoa
+
 	}
 
 	@GetMapping(value = { "/get_products_by_gcategory/{id}" })

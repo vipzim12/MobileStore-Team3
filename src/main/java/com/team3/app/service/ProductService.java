@@ -21,11 +21,6 @@ public class ProductService implements ProductServiceIpm {
 	public Object getAllProByGCategoryId(int id) {
 		return new HttpObject(true, repository.gellProByGCategoryId(id));
 	}
-	
-	@Override
-	public Object getProductByCategoryId(int id) {
-		return new HttpObject(true, repository.getProductByCategoryId(id));
-	}
 
 	@Override
 	public HttpObject insertOne(Product product) {
@@ -101,8 +96,8 @@ public class ProductService implements ProductServiceIpm {
 
 	@Override
 	public Object getProductByCategoryId(int id) {
-		
-		return  new HttpObject(true, repository.getProductByCategoryId(id));
+
+		return new HttpObject(true, repository.getProductByCategoryId(id));
 	}
 
 }
