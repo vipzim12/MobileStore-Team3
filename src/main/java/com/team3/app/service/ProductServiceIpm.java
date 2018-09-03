@@ -24,5 +24,7 @@ public interface ProductServiceIpm {
 	Object gellProByGCategoryIdCategory(int id);
 
 	Object getAllProByName(String key);
+	
+	Object getProductByCategoryId(int id);
 
 }

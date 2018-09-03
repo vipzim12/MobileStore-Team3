@@ -94,4 +94,10 @@ public class ProductService implements ProductServiceIpm {
 		return new HttpObject(true, repository.getProductByName(key));
 	}
 
+	@Override
+	public Object getProductByCategoryId(int id) {
+		
+		return  new HttpObject(true, repository.getProductByCategoryId(id));
+	}
+
 }
