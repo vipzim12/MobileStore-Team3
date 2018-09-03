@@ -3,26 +3,28 @@ package com.team3.app.service;
 import com.team3.app.entities.Product;
 
 public interface ProductServiceIpm {
-  Object getAll();
+	Object getAll();
 
-  Object insertOne(Product product);
+	Object insertOne(Product product);
 
-  Object deleteOne(int id);
+	Object deleteOne(int id);
 
-  Object editOne(Product product);
+	Object editOne(Product product);
 
-  Object getOne(int id);
+	Object getOne(int id);
 
-  Object getAllProductSale();
+	Object getAllProductSale();
 
-  Object gellProByGCategoryId(int id);
+	Object getAllProByGCategoryId(int id);
 
-  Object sortAsc();
+	Object sortAsc();
 
-  Object sortDesc();
-  
-  Object gellProByGCategoryIdCategory(int id);
-  
-  Object getAllProByName(String key);
+	Object sortDesc();
+
+	Object gellProByGCategoryIdCategory(int id);
+
+	Object getAllProByName(String key);
+	
+	Object getProductByCategoryId(int id);
 
 }

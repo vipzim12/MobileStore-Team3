@@ -17,45 +17,50 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-	
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Bean
-	  public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() throws Exception {
-	    JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter = new JwtAuthenticationTokenFilter();
-	    jwtAuthenticationTokenFilter.setAuthenticationManager(authenticationManager());
-	    return jwtAuthenticationTokenFilter;
-	  }
-	  @Bean
-	  public RestAuthenticationEntryPoint restServicesEntryPoint() {
-	    return new RestAuthenticationEntryPoint();
-	  }
-	  @Bean
-	  public CustomAccessDeniedHandler customAccessDeniedHandler() {
-	    return new CustomAccessDeniedHandler();
-	  }
-	  @Bean
-	  @Override
-	  protected AuthenticationManager authenticationManager() throws Exception {
-	    return super.authenticationManager();
-	  }
+	public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() throws Exception {
+		JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter = new JwtAuthenticationTokenFilter();
+		jwtAuthenticationTokenFilter.setAuthenticationManager(authenticationManager());
+		return jwtAuthenticationTokenFilter;
+	}
+
+	@Bean
+	public RestAuthenticationEntryPoint restServicesEntryPoint() {
+		return new RestAuthenticationEntryPoint();
+	}
+
+	@Bean
+	public CustomAccessDeniedHandler customAccessDeniedHandler() {
+		return new CustomAccessDeniedHandler();
+	}
+
+	@Bean
+	@Override
+	protected AuthenticationManager authenticationManager() throws Exception {
+		return super.authenticationManager();
+	}
 
 	@Override
-    protected void configure(HttpSecurity http) throws Exception {
- 
+	protected void configure(HttpSecurity http) throws Exception {
+
 		http.csrf().disable();
 		http.cors().and().authorizeRequests()
-		.mvcMatchers("/auth/login","/api/**").permitAll()
-		.mvcMatchers("/pages/user/select").hasAuthority("ADMIN")
-		.mvcMatchers("/pages/user/select/**").hasAnyAuthority("ADMIN")
-		.mvcMatchers("/pages/user/insert").hasAuthority("ADMIN")
-		.mvcMatchers("/pages/user/edit").hasAuthority("ADMIN")
-		.mvcMatchers("/pages/user/delete/{id}").hasAuthority("ADMIN")
-        .mvcMatchers("/pages/banner/**").hasAuthority("ADMIN");
-        http.mvcMatcher("/pages/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-        .and().addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-        .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
- 
-    }
+
+				.mvcMatchers("/auth/login").permitAll()
+
+				.mvcMatchers("/auth/login", "/api/**").permitAll()
+
+				.mvcMatchers("/pages/user/select").hasAuthority("ADMIN").mvcMatchers("/pages/user/select/**")
+				.hasAnyAuthority("ADMIN").mvcMatchers("/pages/user/insert").hasAuthority("ADMIN")
+				.mvcMatchers("/pages/user/edit").hasAuthority("ADMIN").mvcMatchers("/pages/user/delete/{id}")
+				.hasAuthority("ADMIN").mvcMatchers("/pages/banner/**").hasAuthority("ADMIN");
+		http.mvcMatcher("/pages/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.and().addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+				.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
+
+	}
 
 }

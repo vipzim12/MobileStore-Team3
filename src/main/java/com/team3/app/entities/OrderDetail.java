@@ -8,19 +8,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Order_Detail")
 public class OrderDetail implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   @Id
   @Column(name = "id_order_detail")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
-
-  @Column(name = "id_product")
-  private int idProduct;
   @Column(name = "quantity")
   private int quantity;
   @Column(name = "current_price")
@@ -31,6 +33,10 @@ public class OrderDetail implements Serializable {
   private String customerEmail;
   @Column(name = "phone_customer")
   private String customerPhone;
+  @Column(name = "coupon")
+  private String coupon;
+  @Column(name = "payment_method")
+  private String paymentMethod;
   @Column(name = "address_customer")
   private String customerAddress;
   @Column(name = "description")
@@ -39,6 +45,18 @@ public class OrderDetail implements Serializable {
   @OneToOne
   @JoinColumn(name = "id_order_detail")
   private Order order;
+
+  @OneToOne
+  @JoinColumn(name = "id_product")
+  private Product product;
+
+  public Product getProduct() {
+    return product;
+  }
+
+  public void setProduct(Product product) {
+    this.product = product;
+  }
 
   public Order getOrder() {
     return order;
@@ -54,14 +72,6 @@ public class OrderDetail implements Serializable {
 
   public void setId(int id) {
     this.id = id;
-  }
-
-  public int getIdProduct() {
-    return idProduct;
-  }
-
-  public void setIdProduct(int idProduct) {
-    this.idProduct = idProduct;
   }
 
   public int getQuantity() {
@@ -118,6 +128,22 @@ public class OrderDetail implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public String getCoupon() {
+    return coupon;
+  }
+
+  public void setCoupon(String coupon) {
+    this.coupon = coupon;
+  }
+
+  public String getPaymentMethod() {
+    return paymentMethod;
+  }
+
+  public void setPaymentMethod(String paymentMethod) {
+    this.paymentMethod = paymentMethod;
   }
 
 }
