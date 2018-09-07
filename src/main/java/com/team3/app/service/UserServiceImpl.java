@@ -52,7 +52,9 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Object deleteOne(int id) {
 		if(repository.existsById(id)) {
-			repository.getOne(id).setStatus(0);
+			User user = repository.getOne(id);
+			user.setStatus(0);
+			repository.save(user);
 			return new HttpObject(true, "Delete User successfully");
 		}else {
 			return new HttpObject(false, "User with id="+id+" do not exists");
